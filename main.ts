@@ -26,3 +26,37 @@ for (const ruota of ruote) {
   estrazioni [ruota] = estrazione;
 }
 console.log(JSON.stringify(estrazioni, null, 2));
+
+function createRuotaContainer(ruotaName : string, estrazioni : number[] ) : HTMLDivElement{
+  
+  const ruotaDiv = document.createElement('div');
+  ruotaDiv.className = `ruota ${ruotaName.toLowerCase()}`;
+  const nameH2 = document.createElement('h2');
+  nameH2.className = 'ruota-title';
+  nameH2.innerText = ruotaName;
+  ruotaDiv.appendChild(nameH2);
+
+  for (const num of estrazioni) {
+    const numPar = document.createElement('p');
+    numPar.innerText = `${num}`;
+    const numDiv = document.createElement('div');
+    numDiv.className = 'ruota-estrazione';
+    numDiv.appendChild(numPar)
+    ruotaDiv.appendChild(numDiv);
+  }
+  
+  return ruotaDiv;
+}
+
+const container = document.getElementById("estrazioni");
+if(container){
+  const pre = document.createElement('pre');
+
+  for(const name of ruote) {
+    const ruotaEstrazioni = estrazioni[name];
+    const nameDiv = createRuotaContainer(name, ruotaEstrazioni);
+    container.appendChild(nameDiv);
+  }
+  // pre.innerText = JSON.stringify(estrazioni, null, 2);
+  // container.appendChild(pre);
+}
